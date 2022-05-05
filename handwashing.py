@@ -11,14 +11,16 @@ clinic_1 = yearly[yearly["clinic"] == "clinic 1"]
 clinic_2 = yearly[yearly["clinic"] == "clinic 2"]
 
 # Plot yearly proportion of deaths at the two clinics
-ax = clinic_1.plot(x="year", y="proportion_deaths", label="Clinic 1")
-clinic_2.plot(x="year", y="proportion_deaths", label="Clinic 2", ax=ax, ylabel="Proportion deaths")
+ax = clinic_1.plot(x="year", y="proportion_deaths", label="Clinic 1", c = 'r')
+clinic_2.plot(x="year", y="proportion_deaths", label="Clinic 2", ax=ax, ylabel="Proportion deaths", c = 'blue')
+plo.title("Yearly proportion of deaths at the two clinics")
 
 #Read monthly data
 monthly = pd.read_csv("datasets/monthly_deaths.csv", parse_dates=["date"])
 monthly["proportion_deaths"] = monthly["deaths"] / monthly["births"]
 print(monthly.head())
 ax1 = monthly.plot( x = "date", y = "proportion_deaths", label = "Proportion of deaths", ylabel = "Proportion deaths")
+plo.title("Monthly data")
 
 #Data prepared to compare.
 handwashing_start = pd.to_datetime('1847-06-01')
@@ -45,5 +47,5 @@ for i in range(3000):
 # Calculating a 95% confidence interval from boot_mean_diff
 confidence_interval = pd.Series(boot_mean_diff).quantile([0.025, 0.975])
 print(confidence_interval)
-
+#plo.show()
 print("Conclusion : Doctors should wash their hands ")
